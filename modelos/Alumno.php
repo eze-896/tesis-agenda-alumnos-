@@ -109,7 +109,7 @@ class Alumno {
 
     public function verificarCredenciales(string $usuario, string $password): array|false {
         $con = $this->conexion->obtenerConexion();
-        $sql = "SELECT id_alumnos, nombre, apellido, dni, anio, division, password 
+        $sql = "SELECT id_alumnos, nombre, apellido, dni, anio, division, password, email 
                 FROM alumnos 
                 WHERE email = :usuario OR dni = :usuario";
 

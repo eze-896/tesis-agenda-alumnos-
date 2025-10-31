@@ -8,6 +8,7 @@ header('Content-Type: application/json');
 
 require_once '../config/Conexion.php';
 require_once '../modelos/Alumno.php';
+require_once '../modelos/Dia.php'; 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['login_email'] ?? '');
@@ -26,11 +27,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $alumno = $alumnoModel->verificarCredenciales($email, $password);
         
         if ($alumno) {
+            // --- INICIO DE SESIÓN EXITOSO ---
+            
+            // 1. Establecer variables de sesión
             $_SESSION['alumno_id'] = $alumno['id_alumnos'];
             $_SESSION['alumno_nombre'] = $alumno['nombre'];
             $_SESSION['alumno_apellido'] = $alumno['apellido'];
             $_SESSION['alumno_dni'] = $alumno['dni'];
-            
+            $_SESSION['alumno_anio'] = $alumno['anio'];
+            $_SESSION['alumno_division'] = $alumno['division'];
+            $_SESSION['alumno_email'] = $alumno['email'];
+
+            // 2. >>> LLAMADA AL MÉTODO PARA PRECARGAR DÍAS <<<
+            try {
+                $diaModel = new Dia();
+                $resultado_precarga = $diaModel->precargarDias();
+                // Puedes optar por registrar este evento en logs, pero no lo mostramos al usuario.
+                error_log("Días precargados: " . $resultado_precarga['count']);
+            } catch (Exception $e) {
+                // La precarga falló, pero el login sigue siendo exitoso. Solo registramos el error.
+                error_log("Advertencia: Falló la precarga de días después del login. " . $e->getMessage());
+            }
+
+            // 3. Devolver respuesta de éxito al cliente
             echo json_encode([
                 'success' => true,
                 'message' => 'Login exitoso',
@@ -44,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         
     } catch (Exception $e) {
-        error_log("Error en login: " . $e->getMessage());
+        error_log("Error general en login: " . $e->getMessage());
         echo json_encode([
             'success' => false,
             'message' => 'Error del servidor'
@@ -53,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     echo json_encode([
         'success' => false,
-        'message' => 'Método no permitido'
+        'message' => 'Metodo no permitido'
     ]);
 }
 ?>

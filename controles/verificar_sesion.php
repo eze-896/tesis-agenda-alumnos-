@@ -17,7 +17,10 @@ echo json_encode([
         'id_alumnos' => $_SESSION['alumno_id'],
         'nombre' => $_SESSION['alumno_nombre'],
         'apellido' => $_SESSION['alumno_apellido'],
-        'dni' => $_SESSION['alumno_dni']
+        'dni' => $_SESSION['alumno_dni'],
+        'anio' => $_SESSION['alumno_anio'],
+        'division' => $_SESSION['alumno_division'],
+        'email' => $_SESSION['alumno_email']
     ]
 ]);
 ?>

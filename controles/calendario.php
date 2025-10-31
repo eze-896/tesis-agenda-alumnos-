@@ -6,7 +6,7 @@ require_once '../modelos/Evento.php';
 require_once '../modelos/Inasistencia.php';
 require_once '../modelos/MateriaDia.php';
 require_once '../modelos/AlumnoMateria.php';
-require_once '../modelos/AlumnoEvento.php'; // Nuevo modelo necesario
+require_once '../modelos/AlumnoEvento.php';
 
 $action = $_GET['action'] ?? '';
 

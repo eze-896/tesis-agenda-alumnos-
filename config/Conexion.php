@@ -2,7 +2,7 @@
 class Conexion {
     private $servidor = "localhost";
     private $usuario = "root";
-    private $password = "root";
+    private $password = "";
     private $base_datos = "tesis";
     private $conexion;
     
