@@ -111,11 +111,12 @@
 
 .calendario-dia {
     background: white;
-    min-height: 100px;
+    min-height: 120px;
     padding: 0.5rem;
     position: relative;
     cursor: pointer;
     transition: background 0.3s;
+    font-size: 0.9rem;
 }
 
 .calendario-dia:hover {
@@ -132,12 +133,36 @@
     color: #bdc3c7;
 }
 
+/* Contenedor de materias */
+.materias-container {
+    margin-top: 5px;
+}
+
+.materia-item {
+    background: #3498db;
+    color: white;
+    padding: 2px 4px;
+    margin: 1px 0;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: help;
+}
+
+.materia-item:hover {
+    background: #2980b9;
+}
+
+/* Marcadores de eventos */
 .evento-marker {
-    width: 8px;
-    height: 8px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     margin: 2px;
     display: inline-block;
+    border: 1px solid white;
 }
 
 .materia-marker {
@@ -152,7 +177,7 @@
     background: #f39c12;
 }
 
-/* Modal */
+/* Modales */
 .modal {
     display: none;
     position: fixed;
@@ -263,67 +288,57 @@
     background: #219a52;
 }
 
-/* Agregar estos estilos al archivo calendario.css */
-
-.materias-container {
-    margin-top: 5px;
+/* Estilos para los nuevos modales */
+.tipo-registro-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
 }
 
-.materia-item {
-    background: #3498db;
-    color: white;
-    padding: 2px 4px;
-    margin: 1px 0;
-    border-radius: 3px;
-    font-size: 0.7rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    cursor: help;
-}
-
-.materia-item:hover {
-    background: #2980b9;
-}
-
-/* Ajustar el tamaño de los días para que quepan las materias */
-.calendario-dia {
+.btn-tipo-registro {
     background: white;
-    min-height: 120px; /* Aumentado para que quepan las materias */
-    padding: 0.5rem;
-    position: relative;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 1.5rem;
     cursor: pointer;
-    transition: background 0.3s;
-    font-size: 0.9rem;
+    transition: all 0.3s;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
 }
 
-/* Mejorar los marcadores de eventos */
-.evento-marker {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    margin: 2px;
-    display: inline-block;
-    border: 1px solid white;
+.btn-tipo-registro:hover {
+    border-color: #3498db;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-.materia-marker {
-    background: #3498db;
+.btn-tipo-registro i {
+    font-size: 2rem;
+    color: #3498db;
 }
 
-.evento-marker {
-    background: #e74c3c;
+.btn-tipo-registro span {
+    font-weight: 600;
+    color: #2c3e50;
 }
 
-.inasistencia-marker {
-    background: #f39c12;
+.btn-tipo-registro small {
+    color: #7f8c8d;
+    font-size: 0.8rem;
 }
 
-/* Asegurar que el modal muestre siempre la selección de materia */
-#grupo-materia {
-    display: block !important; /* Forzar mostrar siempre */
+.form-text {
+    color: #7f8c8d;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    display: block;
 }
 
+/* Responsive */
 @media (max-width: 768px) {
     .calendario-container {
         padding: 1rem;
@@ -340,7 +355,34 @@
     }
     
     .calendario-dia {
-        min-height: 80px;
-        font-size: 0.9rem;
+        min-height: 100px;
+        font-size: 0.8rem;
     }
+    
+    .materia-item {
+        font-size: 0.6rem;
+        padding: 0.05rem 0.2rem;
+    }
+    
+    .tipo-registro-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-content {
+        margin: 10% auto;
+        width: 95%;
+    }
+}
+
+/* Estados de los días con eventos */
+.calendario-dia.con-eventos {
+    background: #fff9e6;
+}
+
+.calendario-dia.con-inasistencias {
+    background: #ffe6e6;
+}
+
+.calendario-dia.con-materias {
+    background: #e6f7ff;
 }

@@ -30,5 +30,18 @@ class AlumnoMateria {
         
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function obtenerRelacionAlumnoMateria($id_alumnos, $id_materia) {
+    $con = $this->conexion->obtenerConexion();
+    $sql = "SELECT * FROM alumnos_materias 
+            WHERE id_alumnos = :id_alumnos AND id_materia = :id_materia";
+    
+    $stmt = $con->prepare($sql);
+    $stmt->bindParam(':id_alumnos', $id_alumnos);
+    $stmt->bindParam(':id_materia', $id_materia);
+    $stmt->execute();
+    
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
 }
 ?>

@@ -304,3 +304,213 @@
         padding: 0.75rem 0.5rem;
     }
 }
+
+/* Estilos para pestañas de configuración */
+.config-tabs {
+    display: flex;
+    border-bottom: 2px solid #ecf0f1;
+    margin-bottom: 2rem;
+    background: white;
+    border-radius: 10px 10px 0 0;
+    overflow: hidden;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border: none;
+    background: #f8f9fa;
+    color: #7f8c8d;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s;
+    border-bottom: 3px solid transparent;
+}
+
+.tab-btn:hover {
+    background: #e9ecef;
+    color: #495057;
+}
+
+.tab-btn.active {
+    background: white;
+    color: #3498db;
+    border-bottom-color: #3498db;
+}
+
+.tab-content {
+    background: white;
+    border-radius: 0 0 10px 10px;
+    padding: 2rem;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.config-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+.config-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.config-section h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.config-item {
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    background: #f8f9fa;
+    border-radius: 5px;
+}
+
+.config-item label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.config-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+}
+
+.config-item select {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: white;
+    font-family: inherit;
+}
+
+/* Estilos específicos para el formulario de materias en configuración */
+.gestion-materias-container {
+    max-width: 100%;
+}
+
+.gestion-materias-container .form-section {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.gestion-materias-container .form-section h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.error-state {
+    text-align: center;
+    padding: 2rem;
+    color: #e74c3c;
+}
+
+.error-state i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+/* Estilos para modales del calendario */
+.tipo-registro-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.btn-tipo-registro {
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-tipo-registro:hover {
+    border-color: #3498db;
+    background: #f8f9fa;
+    transform: translateY(-2px);
+}
+
+.btn-tipo-registro i {
+    font-size: 2rem;
+    color: #3498db;
+    margin-bottom: 0.5rem;
+}
+
+.btn-tipo-registro span {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 1.1rem;
+}
+
+.btn-tipo-registro small {
+    color: #7f8c8d;
+    font-size: 0.8rem;
+}
+
+/* Estilos para los marcadores en los días del calendario */
+.materias-container {
+    margin-top: 0.25rem;
+}
+
+.materia-item {
+    background: #3498db;
+    color: white;
+    padding: 0.1rem 0.3rem;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    margin-bottom: 0.1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.evento-marker {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin: 1px;
+    display: inline-block;
+}
+
+.materia-marker {
+    background: #3498db;
+}
+
+.evento-marker {
+    background: #e74c3c;
+}
+
+.inasistencia-marker {
+    background: #f39c12;
+}

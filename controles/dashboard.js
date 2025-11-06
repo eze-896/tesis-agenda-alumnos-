@@ -1,4 +1,32 @@
+// ======================================================================
+// CLASE DASHBOARD - SISTEMA PRINCIPAL DE NAVEGACIÓN ACADÉMICA
+// ======================================================================
+// 
+// Esta clase maneja el dashboard principal del alumno, coordinando todos
+// los módulos del sistema y la navegación entre ellos.
+// 
+// FUNCIONALIDADES PRINCIPALES:
+// - Verificación y gestión de sesión de usuario
+// - Carga dinámica de menú lateral
+// - Navegación entre módulos (Calendario, Materias, Inasistencias, etc.)
+// - Gestión de configuración y perfil de usuario
+// - Carga modular de componentes
+// 
+// ESTRUCTURA DE MÉTODOS:
+// 1.  Constructor e inicialización
+// 2.  Gestión de sesión y autenticación
+// 3.  Carga y configuración del menú
+// 4.  Navegación entre módulos
+// 5.  Carga de módulos específicos
+// 6.  Gestión de configuración y perfil
+// 7.  Utilidades y funciones globales
+// ======================================================================
+
 class Dashboard {
+    // ======================================================================
+    // 1. CONSTRUCTOR E INICIALIZACIÓN
+    // ======================================================================
+    
     constructor() {
         this.alumnoId = null;
         this.alumnoNombre = '';
@@ -8,7 +36,6 @@ class Dashboard {
         this.alumnoDivision = '';
         this.alumnoEmail = '';
         this.moduloActual = 'calendario';
-        this.init();
     }
 
     async init() {
@@ -17,6 +44,10 @@ class Dashboard {
         await this.cargarModulo(this.moduloActual);
         this.actualizarInfoUsuario();
     }
+
+    // ======================================================================
+    // 2. GESTIÓN DE SESIÓN Y AUTENTICACIÓN
+    // ======================================================================
 
     async verificarSesion() {
         try {
@@ -42,16 +73,16 @@ class Dashboard {
         }
     }
 
+    // ======================================================================
+    // 3. CARGA Y CONFIGURACIÓN DEL MENÚ
+    // ======================================================================
+
     async cargarMenu() {
         try {
             const response = await fetch('componentes/menu_vertical.html');
             const menuHTML = await response.text();
-            
             document.getElementById('menu-vertical').innerHTML = menuHTML;
-            
-            // Agregar event listeners a los items del menú
             this.configurarMenu();
-            
         } catch (error) {
             console.error('Error cargando menú:', error);
         }
@@ -59,7 +90,6 @@ class Dashboard {
 
     configurarMenu() {
         const menuItems = document.querySelectorAll('.menu-item');
-        
         menuItems.forEach(item => {
             item.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -67,14 +97,15 @@ class Dashboard {
                 this.cambiarModulo(modulo);
             });
         });
-
-        // Marcar el módulo actual como activo
         this.marcarModuloActivo();
     }
 
+    // ======================================================================
+    // 4. NAVEGACIÓN ENTRE MÓDULOS
+    // ======================================================================
+
     async cambiarModulo(modulo) {
         if (this.moduloActual === modulo) return;
-
         this.moduloActual = modulo;
         this.marcarModuloActivo();
         await this.cargarModulo(modulo);
@@ -89,24 +120,20 @@ class Dashboard {
             }
         });
 
-        // Actualizar título de la página
         const titulos = {
             'calendario': 'Calendario',
             'materias': 'Mis Materias',
             'inasistencias': 'Mis Inasistencias',
             'eventos': 'Eventos',
-            'perfil': 'Mi Perfil',
             'configuracion': 'Configuración'
         };
-        
         document.getElementById('page-title').textContent = titulos[this.moduloActual] || 'Panel del Alumno';
     }
 
     async cargarModulo(modulo) {
         const contentArea = document.getElementById('content-area');
-        
+
         try {
-            // Mostrar loading
             contentArea.innerHTML = `
                 <div class="loading-container">
                     <div class="loading-spinner"></div>
@@ -127,12 +154,9 @@ class Dashboard {
                 case 'eventos':
                     await this.cargarEventos();
                     break;
-                case 'perfil':
-                    await this.cargarPerfil();
-                    break;
                 case 'configuracion':
                     await this.cargarConfiguracion();
-                    break;    
+                    break;
                 default:
                     await this.cargarCalendario();
             }
@@ -149,8 +173,11 @@ class Dashboard {
         }
     }
 
+    // ======================================================================
+    // 5. CARGA DE MÓDULOS ESPECÍFICOS
+    // ======================================================================
+
     async cargarCalendario() {
-        // Inicializar el calendario
         if (typeof Calendario !== 'undefined') {
             const calendario = new Calendario(this.alumnoId);
             await calendario.inicializar();
@@ -160,46 +187,44 @@ class Dashboard {
     }
 
     async cargarMaterias() {
-    const contentArea = document.getElementById('content-area');
-    contentArea.innerHTML = `
-        <div class="module-container">
-            <h2>📚 Mis Materias</h2>
-            <div id="materias-list">
-                <div class="loading-message">Cargando materias...</div>
+        const contentArea = document.getElementById('content-area');
+        contentArea.innerHTML = `
+            <div class="module-container">
+                <h2>📚 Mis Materias</h2>
+                <div id="materias-list">
+                    <div class="loading-message">Cargando materias...</div>
+                </div>
             </div>
-        </div>
-    `;
-    
-    // Inicializar el gestor de materias
-    if (typeof GestorMaterias !== 'undefined') {
-        const gestorMaterias = new GestorMaterias(this.alumnoId);
-        await gestorMaterias.inicializar();
-    } else {
-        throw new Error('Módulo de materias no disponible');
+        `;
+        
+        if (typeof GestionMaterias !== 'undefined') {
+            const gestor = new GestionMaterias();
+            await gestor.cargarMateriasAlumno(this.alumnoId);
+        } else {
+            throw new Error('Módulo de materias no disponible');
+        }
     }
-}
 
     async cargarEventos() {
-    const contentArea = document.getElementById('content-area');
-    contentArea.innerHTML = `
-        <div class="module-container">
-            <h2>📋 Eventos</h2>
-            <div id="eventos-list">
-                <div class="loading-message">Cargando eventos...</div>
+        const contentArea = document.getElementById('content-area');
+        contentArea.innerHTML = `
+            <div class="module-container">
+                <h2>📋 Eventos</h2>
+                <div id="eventos-list">
+                    <div class="loading-message">Cargando eventos...</div>
+                </div>
             </div>
-        </div>
-    `;
-    
-    // Inicializar el gestor de eventos
-    if (typeof VerEventos !== 'undefined') {
-        console.log('Inicializando VerEventos...');
-        window.verEventos = new VerEventos(this.alumnoId);
-        await window.verEventos.inicializar();
-    } else {
-        console.error('VerEventos no está definido');
-        throw new Error('Módulo de eventos no disponible');
+        `;
+
+        if (typeof VerEventos !== 'undefined') {
+            console.log('Inicializando VerEventos...');
+            window.verEventos = new VerEventos(this.alumnoId);
+            await window.verEventos.inicializar();
+        } else {
+            console.error('VerEventos no está definido');
+            throw new Error('Módulo de eventos no disponible');
+        }
     }
-}
 
     async cargarInasistencias() {
         const contentArea = document.getElementById('content-area');
@@ -211,94 +236,235 @@ class Dashboard {
                 </div>
             </div>
         `;
-        
-        // TODO: Implementar gestor de inasistencias
-        setTimeout(() => {
-            document.getElementById('inasistencias-list').innerHTML = `
-                <div class="empty-state">
-                    <i class="fas fa-clock" style="font-size: 3rem; color: #bdc3c7; margin-bottom: 1rem;"></i>
-                    <h3>Módulo en desarrollo</h3>
-                    <p>La funcionalidad de inasistencias estará disponible próximamente.</p>
-                </div>
-            `;
-        }, 1000);
+
+        if (typeof GestorInasistencias !== 'undefined') {
+            window.gestorInasistencias = new GestorInasistencias(this.alumnoId);
+            await window.gestorInasistencias.inicializar();
+        } else {
+            throw new Error('Módulo de inasistencias no disponible');
+        }
     }
 
-    async cargarPerfil() {
-        const contentArea = document.getElementById('content-area');
-        contentArea.innerHTML = `
-            <div class="module-container">
-                <h2>👤 Mi Perfil</h2>
-                <div class="profile-info">
-                    <div class="info-item">
-                        <label>Nombre:</label>
-                        <span>${this.alumnoNombre} ${this.alumnoApellido}</span>
-                    </div>
-                    <div class="info-item">
-                        <label>Dni:</label>
-                        <span>${this.alumnoDni || 'No disponible'}</span>
-                    </div>
-                    <div class="info-item">
-                        <label>Curso:</label>
-                        <span>${this.alumnoAnio}° ${this.alumnoDivision}</span>
-                    </div>
-                    <div class="info-item">
-                        <label>Email:</label>
-                        <span>${this.alumnoEmail || 'No disponible'}</span>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
+    // ======================================================================
+    // 6. GESTIÓN DE CONFIGURACIÓN Y PERFIL
+    // ======================================================================
 
     async cargarConfiguracion() {
         const contentArea = document.getElementById('content-area');
         contentArea.innerHTML = `
             <div class="module-container">
                 <h2>⚙️ Configuración</h2>
-                <div class="config-options">
-                    <p>Aquí puedes ajustar tus preferencias y configuraciones.</p>
-                    <div class="config-item">
-                        <label>
-                            <input type="checkbox" id="notificaciones"> 
-                            Recibir notificaciones
-                        </label>
+                
+                <div class="config-tabs">
+                    <button class="tab-btn active" data-tab="agregar-materia">➕ Agregar Materia</button>
+                    <button class="tab-btn" data-tab="cuenta">👤 Cuenta</button>
+                </div>
+                
+                <div class="tab-content">
+                    <div id="agregar-materia" class="tab-pane active">
+                        <div id="gestion-materias-container">
+                            <div class="loading-message">Cargando formulario...</div>
+                        </div>
                     </div>
-                    <div class="config-item">
-                        <label>
-                            <input type="checkbox" id="email-recordatorios"> 
-                            Recordatorios por email
-                        </label>
+                    
+                    <div id="cuenta" class="tab-pane">
+                        <div class="config-section">
+                            <h3>Información de la Cuenta</h3>
+                            <div class="info-item">
+                                <label>Nombre:</label>
+                                <span>${this.alumnoNombre} ${this.alumnoApellido}</span>
+                            </div>
+                            <div class="info-item">
+                                <label>DNI:</label>
+                                <span>${this.alumnoDni || 'No disponible'}</span>
+                            </div>
+                            <div class="info-item">
+                                <label>Curso:</label>
+                                <span>${this.alumnoAnio}° ${this.alumnoDivision}</span>
+                            </div>
+                            <div class="info-item">
+                                <label>Email:</label>
+                                <span>${this.alumnoEmail || 'No disponible'}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="config-section">
+                            <h3>Cambiar Contraseña</h3>
+                            <form id="form-cambiar-password">
+                                <div class="form-group">
+                                    <label for="password-actual">Contraseña Actual:</label>
+                                    <input type="password" id="password-actual" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password-nueva">Nueva Contraseña:</label>
+                                    <input type="password" id="password-nueva" required minlength="8">
+                                    <small class="form-text">Mínimo 8 caracteres</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password-confirmar">Confirmar Nueva Contraseña:</label>
+                                    <input type="password" id="password-confirmar" required>
+                                </div>
+                                <button type="submit" class="btn-primary">Cambiar Contraseña</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         `;
+        
+        this.configurarTabs();
+        await this.cargarFormularioGestionMaterias();
+        this.configurarCambioPassword();
     }
 
+    configurarTabs() {
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabPanes = document.querySelectorAll('.tab-pane');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabPanes.forEach(p => p.classList.remove('active'));
+                btn.classList.add('active');
+                const tabId = btn.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    }
+
+    async cargarFormularioGestionMaterias() {
+        const container = document.getElementById('gestion-materias-container');
+
+        try {
+            const response = await fetch('componentes/formulario_materias.html');
+            const formularioHTML = await response.text();
+            container.innerHTML = formularioHTML;
+            this.inicializarGestionMaterias();
+        } catch (error) {
+            console.error('Error cargando formulario de materias:', error);
+            container.innerHTML = `
+                <div class="error-state">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Error al cargar el formulario</h3>
+                    <p>No se pudo cargar el formulario de gestión de materias.</p>
+                    <button onclick="dashboard.cargarFormularioGestionMaterias()" class="btn-primary">Reintentar</button>
+                </div>
+            `;
+        }
+    }
+
+    inicializarGestionMaterias() {
+        if (typeof window.gestionMaterias !== 'undefined') {
+            window.gestionMaterias.inicializarFormulario();
+        } else {
+            console.error('Módulo de gestión de materias no disponible');
+        }
+    }
+
+    configurarCambioPassword() {
+        const form = document.getElementById('form-cambiar-password');
+        if (form) {
+            form.addEventListener('submit', (e) => this.cambiarPassword(e));
+        }
+    }
+
+    async cambiarPassword(e) {
+        e.preventDefault();
+        
+        const passwordActual = document.getElementById('password-actual').value;
+        const passwordNueva = document.getElementById('password-nueva').value;
+        const passwordConfirmar = document.getElementById('password-confirmar').value;
+        
+        if (!passwordActual || !passwordNueva || !passwordConfirmar) {
+            alert('Por favor completa todos los campos');
+            return;
+        }
+        
+        if (passwordNueva.length < 8) {
+            alert('La nueva contraseña debe tener al menos 8 caracteres');
+            return;
+        }
+        
+        if (passwordNueva !== passwordConfirmar) {
+            alert('Las contraseñas nuevas no coinciden');
+            return;
+        }
+        
+        if (passwordNueva === passwordActual) {
+            alert('La nueva contraseña debe ser diferente a la actual');
+            return;
+        }
+        
+        try {
+            const response = await fetch('../controles/cambiar_password.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    alumno_id: this.alumnoId,
+                    password_actual: passwordActual,
+                    password_nueva: passwordNueva
+                })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                alert('✅ Contraseña cambiada exitosamente');
+                document.getElementById('form-cambiar-password').reset();
+            } else {
+                alert('❌ Error: ' + result.message);
+            }
+            
+        } catch (error) {
+            console.error('Error cambiando contraseña:', error);
+            alert('❌ Error al cambiar la contraseña');
+        }
+    }
+
+    // ======================================================================
+    // 7. UTILIDADES Y FUNCIONES GLOBALES
+    // ======================================================================
+
     actualizarInfoUsuario() {
-        document.getElementById('user-name').textContent = 
-            `${this.alumnoNombre} ${this.alumnoApellido}`;
+        const userNameElement = document.getElementById('user-name');
+        if (userNameElement) {
+            userNameElement.textContent = `${this.alumnoNombre} ${this.alumnoApellido}`;
+        }
+        
+        const menuUserName = document.getElementById('menu-user-name');
+        if (menuUserName) {
+            menuUserName.textContent = `${this.alumnoNombre} ${this.alumnoApellido}`;
+        }
     }
 }
 
-// Función global para cerrar sesión
+// ======================================================================
+// FUNCIONES GLOBALES DEL SISTEMA
+// ======================================================================
+
 function cerrarSesion() {
     if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
         fetch('../controles/cerrar_sesion.php', {
             method: 'POST'
         })
-        .then(() => {
-            window.location.href = 'login.html';
-        })
-        .catch(error => {
-            console.error('Error cerrando sesión:', error);
-            window.location.href = 'login.html';
-        });
+            .then(() => {
+                window.location.href = 'login.html';
+            })
+            .catch(error => {
+                console.error('Error cerrando sesión:', error);
+                window.location.href = 'login.html';
+            });
     }
 }
 
-// Inicializar dashboard cuando se cargue la página
+// ======================================================================
+// INICIALIZACIÓN DEL SISTEMA
+// ======================================================================
+
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Inicializando Dashboard...');
     window.dashboard = new Dashboard();
+    window.dashboard.init();
 });

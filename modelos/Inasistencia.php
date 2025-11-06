@@ -76,29 +76,40 @@ class Inasistencia {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
     
-    public function obtenerInasistenciasPorAlumno($id_alumnos) {
-    $con = $this->conexion->obtenerConexion();
-    $sql = "SELECT i.*, m.nombre as materia 
-            FROM inasistencias i 
-            JOIN materias m ON i.id_materia = m.id_materia 
-            WHERE i.id_alumnos = :id_alumnos";
-    
-    $stmt = $con->prepare($sql);
-    $stmt->bindParam(':id_alumnos', $id_alumnos);
-    $stmt->execute();
-    
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-    
     public function actualizarInasistencia($id, $datos) {
         $con = $this->conexion->obtenerConexion();
-        $sql = "UPDATE inasistencias SET fecha = :fecha, id_alumnos = :id_alumnos, 
-                id_materia = :id_materia, justificada = :justificada 
-                WHERE id_inasistencia = :id";
+        
+        // Construir la consulta dinámicamente
+        $campos = [];
+        $parametros = [];
+        
+        foreach ($datos as $campo => $valor) {
+            if ($campo !== 'id') { // Excluir el ID de los campos a actualizar
+                $campos[] = "$campo = :$campo";
+                $parametros[":$campo"] = $valor;
+            }
+        }
+        
+        $sql = "UPDATE inasistencias SET " . implode(', ', $campos) . " WHERE id_inasistencia = :id";
+        $parametros[':id'] = $id;
         
         $stmt = $con->prepare($sql);
-        $datos['id'] = $id;
-        return $stmt->execute($datos);
+        return $stmt->execute($parametros);
+    }
+
+    public function obtenerInasistenciasPorAlumno($id_alumnos) {
+        $con = $this->conexion->obtenerConexion();
+        $sql = "SELECT i.*, m.nombre as materia 
+                FROM inasistencias i 
+                LEFT JOIN materias m ON i.id_materia = m.id_materia 
+                WHERE i.id_alumnos = :id_alumnos
+                ORDER BY i.fecha DESC";
+        
+        $stmt = $con->prepare($sql);
+        $stmt->bindParam(':id_alumnos', $id_alumnos);
+        $stmt->execute();
+        
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     
     public function eliminarInasistencia($id) {
