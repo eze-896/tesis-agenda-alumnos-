@@ -186,24 +186,56 @@ class Dashboard {
         }
     }
 
-    async cargarMaterias() {
-        const contentArea = document.getElementById('content-area');
-        contentArea.innerHTML = `
-            <div class="module-container">
-                <h2>📚 Mis Materias</h2>
-                <div id="materias-list">
-                    <div class="loading-message">Cargando materias...</div>
-                </div>
+    // En el método cargarMaterias, agregar los estilos CSS para los nuevos badges
+async cargarMaterias() {
+    const contentArea = document.getElementById('content-area');
+    contentArea.innerHTML = `
+        <div class="module-container">
+            <h2>📚 Mis Materias</h2>
+            <style>
+                .badge {
+                    padding: 4px 8px;
+                    border-radius: 12px;
+                    font-size: 0.8rem;
+                    font-weight: 500;
+                }
+                .badge-duracion {
+                    background-color: #e3f2fd;
+                    color: #1976d2;
+                    border: 1px solid #bbdefb;
+                }
+                .estado-cursando {
+                    background-color: #e8f5e8;
+                    color: #2e7d32;
+                    border: 1px solid #c8e6c9;
+                }
+                .estado-recursando {
+                    background-color: #fff3e0;
+                    color: #ef6c00;
+                    border: 1px solid #ffe0b2;
+                }
+                .estado-intensificando {
+                    background-color: #e3f2fd;
+                    color: #1565c0;
+                    border: 1px solid #bbdefb;
+                }
+                .materia-duracion, .materia-estado {
+                    text-align: center;
+                }
+            </style>
+            <div id="materias-list">
+                <div class="loading-message">Cargando materias...</div>
             </div>
-        `;
-        
-        if (typeof GestionMaterias !== 'undefined') {
-            const gestor = new GestionMaterias();
-            await gestor.cargarMateriasAlumno(this.alumnoId);
-        } else {
-            throw new Error('Módulo de materias no disponible');
-        }
+        </div>
+    `;
+    
+    if (typeof GestorMaterias !== 'undefined') {
+        const gestor = new GestorMaterias(this.alumnoId);
+        await gestor.inicializar();
+    } else {
+        throw new Error('Módulo de materias no disponible');
     }
+}
 
     async cargarEventos() {
         const contentArea = document.getElementById('content-area');

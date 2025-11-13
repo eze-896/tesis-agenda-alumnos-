@@ -1,6 +1,10 @@
-/* Estilos para módulos de Materias y Eventos */
+/* ==========================================================================
+   ESTILOS PARA MÓDULOS DE MATERIAS Y EVENTOS - MEJORADO Y ORGANIZADO
+   ========================================================================== */
 
-/* Tabla de Materias */
+/* ==========================================================================
+   1. TABLA DE MATERIAS - MEJORADA
+   ========================================================================== */
 .table-container {
     overflow-x: auto;
     margin-bottom: 2rem;
@@ -13,6 +17,7 @@
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    min-width: 900px;
 }
 
 .materias-table th {
@@ -32,32 +37,398 @@
     background: #f8f9fa;
 }
 
+/* Columnas optimizadas para los nuevos campos */
 .materia-nombre {
+    font-weight: 600;
+    color: #2c3e50;
+    min-width: 150px;
+}
+
+.materia-duracion,
+.materia-estado {
+    text-align: center;
+    min-width: 100px;
+}
+
+.materia-profesor {
+    min-width: 120px; /* Reducido para dar más espacio al estado */
+}
+
+.materia-horarios {
+    min-width: 100px; /* Reducido */
+}
+
+.materia-dias {
+    min-width: 100px; /* Reducido */
+    font-size: 0.85rem; /* Texto más pequeño */
+}
+
+.materia-acciones {
+    text-align: center;
+    min-width: 100px;
+}
+
+/* Badges para duración y estado - Texto más pequeño */
+.badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem; /* Texto más pequeño */
+    font-weight: 500;
+}
+
+.badge-duracion {
+    background-color: #e3f2fd;
+    color: #1976d2;
+    border: 1px solid #bbdefb;
+}
+
+.estado-cursando {
+    background-color: #e8f5e8;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+}
+
+.estado-recursando {
+    background-color: #fff3e0;
+    color: #ef6c00;
+    border: 1px solid #ffe0b2;
+}
+
+.estado-intensificando {
+    background-color: #e3f2fd;
+    color: #1565c0;
+    border: 1px solid #bbdefb;
+}
+
+/* Botones de acción */
+.btn-edit-materia,
+.btn-delete-materia {
+    background: none;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    margin: 0 2px;
+}
+
+.btn-edit-materia:hover {
+    background: #3498db;
+    color: white;
+}
+
+.btn-delete-materia:hover {
+    background: #e74c3c;
+    color: white;
+}
+
+/* ==========================================================================
+   2. FORMULARIO DE MATERIAS - MEJORADO (BOTONES AL COSTADO)
+   ========================================================================== */
+.gestion-materias-container {
+    max-width: 100%;
+}
+
+.form-unificado {
+    background: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.form-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+.form-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.form-section h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.section-description {
+    color: #7f8c8d;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+}
+
+/* Grupos de formulario */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
     font-weight: 600;
     color: #2c3e50;
 }
 
-.materia-profesor small {
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="time"],
+.form-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.1);
+}
+
+/* Filas de formulario - MEJORADO PARA BOTONES AL COSTADO */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto; /* 3 columnas: día, horario, botón */
+    gap: 1rem;
+    align-items: end;
+}
+
+/* Contenedor de horarios - MEJORADO */
+#horarios-container {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #e9ecef;
+}
+
+.horario-item {
+    background: white;
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    border: 1px solid #e9ecef;
+}
+
+.horario-item:last-child {
+    margin-bottom: 0;
+}
+
+.horario-item .form-row {
+    margin-bottom: 0;
+}
+
+/* Botón eliminar horario - AHORA AL COSTADO */
+.btn-remove {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: background 0.3s;
+    height: 42px; /* Misma altura que los inputs */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-remove:hover {
+    background: #c0392b;
+}
+
+/* Botón agregar horario */
+.btn-add {
+    background: #27ae60;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 1rem;
+}
+
+.btn-add:hover {
+    background: #229954;
+}
+
+/* Acciones del formulario */
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #ecf0f1;
+}
+
+.btn-submit {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.btn-submit:hover {
+    background: #2980b9;
+}
+
+.btn-cancel {
+    background: #95a5a6;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s;
+}
+
+.btn-cancel:hover {
+    background: #7f8c8d;
+}
+
+.btn-cancel-edit {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.3s;
+}
+
+.btn-cancel-edit:hover {
+    background: #c0392b;
+}
+
+/* ==========================================================================
+   3. CARDS DE MATERIAS EN CONFIGURACIÓN
+   ========================================================================== */
+.materia-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-left: 4px solid #3498db;
+}
+
+.materia-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.materia-nombre {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0;
+}
+
+.materia-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-edit,
+.btn-delete {
+    background: none;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s;
+}
+
+.btn-edit:hover {
+    background: #3498db;
+    color: white;
+}
+
+.btn-delete:hover {
+    background: #e74c3c;
+    color: white;
+}
+
+.materia-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.profesor-info {
+    margin-bottom: 1rem;
+}
+
+.profesor-nombre {
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+.profesor-email {
     color: #7f8c8d;
     font-size: 0.9rem;
 }
 
-.horario-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.25rem;
-    font-size: 0.9rem;
+.horarios-list {
+    margin-top: 1rem;
 }
 
-.horario-item i {
-    color: #3498db;
+.horario-item-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    background: #f8f9fa;
+    border-radius: 4px;
+    margin-bottom: 0.25rem;
+}
+
+.dia-horario {
+    font-weight: 500;
+}
+
+.hora {
+    color: #7f8c8d;
+    font-family: 'Courier New', monospace;
 }
 
 .no-horarios {
     color: #95a5a6;
     font-style: italic;
+    text-align: center;
+    padding: 1rem;
 }
+
+/* ==========================================================================
+   4. ESTILOS ORIGINALES PARA EVENTOS (MANTENIDOS)
+   ========================================================================== */
 
 /* Grid de Eventos */
 .eventos-controls {
@@ -226,6 +597,10 @@
     cursor: not-allowed;
 }
 
+/* ==========================================================================
+   5. ESTILOS ORIGINALES PARA INASISTENCIAS (MANTENIDOS)
+   ========================================================================== */
+
 /* Estadísticas */
 .materias-stats,
 .eventos-stats {
@@ -283,29 +658,9 @@
     background: #2980b9;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .eventos-controls {
-        flex-direction: column;
-        gap: 1rem;
-        align-items: stretch;
-    }
-    
-    .eventos-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .materias-table {
-        font-size: 0.9rem;
-    }
-    
-    .materias-table th,
-    .materias-table td {
-        padding: 0.75rem 0.5rem;
-    }
-}
-
-/* Estilos para pestañas de configuración */
+/* ==========================================================================
+   6. PESTAÑAS DE CONFIGURACIÓN (MANTENIDAS)
+   ========================================================================== */
 .config-tabs {
     display: flex;
     border-bottom: 2px solid #ecf0f1;
@@ -376,141 +731,48 @@
     font-size: 1.2rem;
 }
 
-.config-item {
-    margin-bottom: 1rem;
-    padding: 0.75rem;
-    background: #f8f9fa;
-    border-radius: 5px;
-}
-
-.config-item label {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    font-weight: 500;
-}
-
-.config-item input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-}
-
-.config-item select {
-    padding: 0.5rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background: white;
-    font-family: inherit;
-}
-
-/* Estilos específicos para el formulario de materias en configuración */
-.gestion-materias-container {
-    max-width: 100%;
-}
-
-.gestion-materias-container .form-section {
-    background: #f8f9fa;
-    padding: 1.5rem;
-    border-radius: 8px;
-    margin-bottom: 1.5rem;
-}
-
-.gestion-materias-container .form-section h3 {
-    color: #2c3e50;
-    margin-bottom: 1rem;
-    font-size: 1.1rem;
-}
-
-.error-state {
-    text-align: center;
-    padding: 2rem;
-    color: #e74c3c;
-}
-
-.error-state i {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-}
-
-/* Estilos para modales del calendario */
-.tipo-registro-options {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-}
-
-.btn-tipo-registro {
-    background: white;
-    border: 2px solid #e0e0e0;
-    border-radius: 10px;
-    padding: 1.5rem;
-    cursor: pointer;
-    transition: all 0.3s;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.btn-tipo-registro:hover {
-    border-color: #3498db;
-    background: #f8f9fa;
-    transform: translateY(-2px);
-}
-
-.btn-tipo-registro i {
-    font-size: 2rem;
-    color: #3498db;
-    margin-bottom: 0.5rem;
-}
-
-.btn-tipo-registro span {
-    font-weight: 600;
-    color: #2c3e50;
-    font-size: 1.1rem;
-}
-
-.btn-tipo-registro small {
-    color: #7f8c8d;
-    font-size: 0.8rem;
-}
-
-/* Estilos para los marcadores en los días del calendario */
-.materias-container {
-    margin-top: 0.25rem;
-}
-
-.materia-item {
-    background: #3498db;
-    color: white;
-    padding: 0.1rem 0.3rem;
-    border-radius: 3px;
-    font-size: 0.7rem;
-    margin-bottom: 0.1rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.evento-marker {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    margin: 1px;
-    display: inline-block;
-}
-
-.materia-marker {
-    background: #3498db;
-}
-
-.evento-marker {
-    background: #e74c3c;
-}
-
-.inasistencia-marker {
-    background: #f39c12;
+/* ==========================================================================
+   7. RESPONSIVE
+   ========================================================================== */
+@media (max-width: 768px) {
+    .eventos-controls {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+    }
+    
+    .eventos-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .materias-table {
+        font-size: 0.9rem;
+    }
+    
+    .materias-table th,
+    .materias-table td {
+        padding: 0.75rem 0.5rem;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr; /* En móvil, una columna */
+        gap: 1rem;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .materia-info {
+        grid-template-columns: 1fr;
+    }
+    
+    .config-tabs {
+        flex-direction: column;
+    }
+    
+    .badge {
+        font-size: 0.7rem; /* Texto aún más pequeño en móvil */
+        padding: 3px 6px;
+    }
 }

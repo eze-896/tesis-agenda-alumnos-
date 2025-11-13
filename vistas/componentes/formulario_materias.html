@@ -9,6 +9,29 @@
                     <input type="text" id="nombre-materia" name="nombre_materia"
                         placeholder="Ej: Matemáticas, Lengua, Ciencias..." required>
                 </div>
+                
+                <!-- NUEVO CAMPO: Duración -->
+                <div class="form-group">
+                    <label for="duracion-materia">Duración de la Clase (horas) *</label>
+                    <select id="duracion-materia" name="duracion_materia" required>
+                        <option value="">Selecciona la duración</option>
+                        <option value="1">1 hora</option>
+                        <option value="2">2 horas</option>
+                        <option value="3">3 horas</option>
+                        <option value="4">4 horas</option>
+                    </select>
+                </div>
+                
+                <!-- NUEVO CAMPO: Estado -->
+                <div class="form-group">
+                    <label for="estado-materia">Estado de la Materia *</label>
+                    <select id="estado-materia" name="estado_materia" required>
+                        <option value="">Selecciona el estado</option>
+                        <option value="cursando">Cursando</option>
+                        <option value="recursando">Recursando</option>
+                        <option value="intensificando">Intensificando</option>
+                    </select>
+                </div>
             </div>
 
             <!-- Horarios de la Materia -->
@@ -32,7 +55,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Horario</label>
+                                <label>Horario de Inicio</label>
                                 <input type="time" name="horarios[]" required>
                             </div>
                             <div class="form-group">
@@ -72,10 +95,10 @@
             </div>
 
             <div class="form-actions">
-                <button type="button" class="btn-add">
-                    ➕ Agregar otro horario
+                <button type="submit" class="btn-submit">
+                    💾 Guardar Materia Completa
                 </button>
-
+                
                 <button type="button" class="btn-cancel">
                     🗑️ Limpiar Formulario
                 </button>

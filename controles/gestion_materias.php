@@ -80,6 +80,8 @@ try {
 function guardarMateriaCompleta() {
     // Obtener datos del formulario
     $nombreMateria = $_POST['nombre_materia'] ?? '';
+    $duracionMateria = $_POST['duracion_materia'] ?? null;
+    $estadoMateria = $_POST['estado_materia'] ?? '';
     $nombreProfesor = $_POST['nombre_profesor'] ?? '';
     $apellidoProfesor = $_POST['apellido_profesor'] ?? '';
     $emailProfesor = $_POST['email_profesor'] ?? '';
@@ -87,8 +89,9 @@ function guardarMateriaCompleta() {
     $horarios = $_POST['horarios'] ?? [];
     
     // Validaciones básicas
-    if (empty($nombreMateria) || empty($nombreProfesor) || empty($apellidoProfesor)) {
-        throw new Exception('El nombre de la materia y del profesor son obligatorios');
+    if (empty($nombreMateria) || empty($nombreProfesor) || empty($apellidoProfesor) || 
+        empty($estadoMateria) || empty($duracionMateria)) {
+        throw new Exception('Todos los campos obligatorios deben ser completados');
     }
     
     if (count($dias) !== count($horarios) || count($dias) === 0) {
@@ -96,50 +99,39 @@ function guardarMateriaCompleta() {
     }
     
     try {
-        // 1. Crear o obtener profesor
+        // 1. Crear o obtener profesor (código existente...)
         $profesorModel = new Profesor();
-        
-        // Buscar si el profesor ya existe
         $profesorExistente = $profesorModel->obtenerProfesorPorNombre($nombreProfesor, $apellidoProfesor);
         
         if ($profesorExistente) {
             $profesorId = $profesorExistente['id_profesor'];
-            
-            // Actualizar email si es necesario y si se proporcionó
             if (!empty($emailProfesor) && $profesorExistente['email'] !== $emailProfesor) {
-                $profesorModel->actualizarProfesor($profesorId, [
-                    'email' => $emailProfesor
-                ]);
+                $profesorModel->actualizarProfesor($profesorId, ['email' => $emailProfesor]);
             }
         } else {
-            // Crear nuevo profesor
             $datosProfesor = [
                 'nombre' => $nombreProfesor,
                 'apellido' => $apellidoProfesor
             ];
             
-            // Solo agregar email si no está vacío
             if (!empty($emailProfesor)) {
                 $datosProfesor['email'] = $emailProfesor;
             }
             
-            // Usar el método crearProfesor que retorna el ID
             $resultado = $profesorModel->crearProfesor($datosProfesor);
-            
-            if ($resultado) {
-                // Obtener el ID del profesor recién creado
-                $profesorRecienCreado = $profesorModel->obtenerProfesorPorNombre($nombreProfesor, $apellidoProfesor);
-                $profesorId = $profesorRecienCreado['id_profesor'];
-            } else {
-                throw new Exception('No se pudo crear el profesor');
-            }
+            $profesorRecienCreado = $profesorModel->obtenerProfesorPorNombre($nombreProfesor, $apellidoProfesor);
+            $profesorId = $profesorRecienCreado['id_profesor'];
         }
         
-        // 2. Crear materia
+        // 2. Crear materia CON LOS NUEVOS CAMPOS
         $materiaModel = new Materia();
-        $resultadoMateria = $materiaModel->crearMateria([
-            'nombre' => $nombreMateria
-        ]);
+        $datosMateria = [
+            'nombre' => $nombreMateria,
+            'duracion' => $duracionMateria,
+            'estado' => $estadoMateria
+        ];
+        
+        $resultadoMateria = $materiaModel->crearMateria($datosMateria);
         
         if (!$resultadoMateria) {
             throw new Exception('No se pudo crear la materia');
@@ -154,15 +146,13 @@ function guardarMateriaCompleta() {
         $relacionExistente = $profesorMateriaModel->obtenerRelacionProfesorMateria($profesorId, $materiaId);
         
         if (!$relacionExistente) {
-            // Solo crear la relación si no existe
             $profesorMateriaModel->asignarMateriaProfesor($profesorId, $materiaId);
         }
         
-        // 4. Agregar horarios
+        // 4. Agregar horarios (código existente...)
         $materiaDiaModel = new MateriaDia();
         for ($i = 0; $i < count($dias); $i++) {
             if (!empty($dias[$i]) && !empty($horarios[$i])) {
-                // Verificar si ya existe este horario
                 $horarioExistente = $materiaDiaModel->obtenerHorarioExistente($materiaId, $dias[$i], $horarios[$i]);
                 
                 if (!$horarioExistente) {
