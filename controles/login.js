@@ -2,35 +2,37 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("login-form");
     const emailInput = document.getElementById("login-email");
     const passwordInput = document.getElementById("login-password");
+    const togglePasswordBtn = document.getElementById("toggle-password");
+    const eyeOpenIcon = togglePasswordBtn.querySelector('.eye-open');
+    const eyeClosedIcon = togglePasswordBtn.querySelector('.eye-closed');
 
-    // Botón para mostrar/ocultar contraseña
-    const toggleBtn = document.createElement("button");
-    toggleBtn.type = "button";
-    toggleBtn.textContent = "Mostrar";
-    toggleBtn.style.marginLeft = "10px";
-    toggleBtn.style.cursor = "pointer";
-    toggleBtn.style.padding = "5px 10px";
-    toggleBtn.style.fontSize = "0.9rem";
+    // Verificar que los elementos existan
+    if (!form || !emailInput || !passwordInput || !togglePasswordBtn) {
+        console.error('Error: No se encontraron los elementos del formulario de login');
+        return;
+    }
 
-    passwordInput.parentNode.appendChild(toggleBtn);
-
-    toggleBtn.addEventListener("click", () => {
+    // Toggle de visibilidad de contraseña
+    togglePasswordBtn.addEventListener("click", () => {
         if (passwordInput.type === "password") {
             passwordInput.type = "text";
-            toggleBtn.textContent = "Ocultar";
+            eyeOpenIcon.style.display = "none";
+            eyeClosedIcon.style.display = "block";
         } else {
             passwordInput.type = "password";
-            toggleBtn.textContent = "Mostrar";
+            eyeOpenIcon.style.display = "block";
+            eyeClosedIcon.style.display = "none";
         }
     });
 
+    // Manejar submit del formulario
     form.addEventListener("submit", async function (e) {
         e.preventDefault();
 
         const correo = emailInput.value.trim();
         const password = passwordInput.value;
 
-        // Validaciones básicas
+        // ===== VALIDACIONES BÁSICAS =====
         if (!correo) {
             alert("El correo electrónico o DNI es obligatorio.");
             emailInput.focus();
@@ -43,11 +45,26 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+        // Validación adicional: si es DNI, verificar que sean 8 números
+        if (/^\d+$/.test(correo) && correo.length !== 8) {
+            alert("Si ingresas DNI, debe tener exactamente 8 dígitos.");
+            emailInput.focus();
+            return;
+        }
+
+        // Deshabilitar botón para evitar múltiples envíos
+        const submitBtn = form.querySelector('.register-button');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Iniciando sesión...';
+        submitBtn.disabled = true;
+
         try {
+            // Preparar datos
             const formData = new FormData();
             formData.append('login_email', correo);
             formData.append('login_password', password);
 
+            // Enviar al servidor
             const response = await fetch("../controles/login.php", {
                 method: "POST",
                 body: formData
@@ -56,16 +73,37 @@ document.addEventListener("DOMContentLoaded", function () {
             const result = await response.json();
 
             if (result.success) {
+                // Login exitoso
                 alert(`¡Bienvenido ${result.alumno.nombre} ${result.alumno.apellido}!`);
-                // Redirigir al dashboard del alumno
+                
+                // Limpiar formulario
+                form.reset();
+                
+                // Redirigir al dashboard
                 window.location.href = "../vistas/dashboard_alumno.html";
             } else {
-                alert(result.message);
+                // Login fallido
+                alert(`${result.message || 'Error al iniciar sesión'}`);
+                
+                // Re-habilitar botón
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                
+                // Limpiar contraseña por seguridad
+                passwordInput.value = '';
+                passwordInput.focus();
             }
 
         } catch (error) {
             console.error("Error en el login:", error);
-            alert("Error de conexión con el servidor.");
+            alert("Error de conexión con el servidor. Por favor, intenta nuevamente.");
+            
+            // Re-habilitar botón
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
         }
     });
+
+    // Focus automático en el primer campo al cargar
+    emailInput.focus();
 });
