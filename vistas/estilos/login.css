@@ -6,10 +6,10 @@
     --secondary-color: #b695c0;   /* Morado claro / secundario */
     --accent-color: #dac9df;      /* Acento suave */
     --text-color: #050505;        /* Texto principal */
-    --light-gray: #151617;        /* Fondo oscuro */
-    --border-color: #81638b;      /* Bordes y detalles */
-    --error-color: #ef233c;       /* Errores / alertas (dejé original por contraste) */
-    --success-color: #4ad66d;     /* Éxitos / confirmaciones (dejé original) */
+    --light-gray: #f5f7fa;        /* Fondo claro */
+    --border-color: #b695c0;      /* Bordes y detalles */
+    --error-color: #e74c3c;       /* Errores / alertas */
+    --success-color: #2ecc71;     /* Éxitos / confirmaciones */
 }
 
 /* ================================
@@ -19,53 +19,47 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
 }
 
-/* ================================
-   Estilo del body
-   ================================ */
 body {
-    background: linear-gradient(135deg, var(--light-gray) 0%, var(--accent-color) 100%);
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     color: var(--text-color);
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
     padding: 20px;
 }
 
-/* ================================
-   Contenedor principal
-   ================================ */
 .register-wrapper {
     width: 100%;
-    max-width: 450px; /* Caja centrada y compacta */
+    max-width: 800px;
 }
 
 .register-container {
     background: white;
     border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
-/* ================================
-   Encabezado del login
-   ================================ */
 .register-header {
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
-    padding: 35px 25px;
-    text-align: center;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .register-title {
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 600;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .register-subtitle {
@@ -73,17 +67,17 @@ body {
     opacity: 0.9;
 }
 
-/* ================================
-   Formulario de login
-   ================================ */
 .login-form {
-    padding: 30px 25px;
+    padding: 40px;
     display: flex;
     flex-direction: column;
-    gap: 20px; /* separación entre campos */
 }
 
-/* Etiquetas */
+.form-group {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
 .form-group label {
     display: block;
     margin-bottom: 8px;
@@ -92,7 +86,6 @@ body {
     color: var(--text-color);
 }
 
-/* Campos de texto */
 .form-group input {
     width: 100%;
     padding: 12px 15px;
@@ -108,9 +101,44 @@ body {
     outline: none;
 }
 
-/* ================================
-   Botón de inicio de sesión
-   ================================ */
+/* Estilos para el contenedor de la contraseña */
+.password-container {
+    position: relative;
+}
+
+.password-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Estilo para el campo de contraseña */
+#login-password {
+    padding-right: 45px; /* Espacio para el botón */
+    width: 100%;
+}
+
+/* Estilo para el botón de mostrar/ocultar contraseña */
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+}
+
+.toggle-password:hover {
+    color: var(--primary-color);
+}
+
 .register-button {
     background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
     color: white;
@@ -120,20 +148,18 @@ body {
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
+    margin-top: 10px;
     transition: all 0.3s ease;
 }
 
 .register-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(129, 99, 139, 0.3);
+    box-shadow: 0 5px 15px rgba(129, 99, 139, 0.3);
 }
 
-/* ================================
-   Enlace a registro
-   ================================ */
 .login-link {
     text-align: center;
-    margin-top: 15px;
+    margin-top: 20px;
     font-size: 0.9rem;
     color: #6c757d;
 }
@@ -149,19 +175,17 @@ body {
     text-decoration: underline;
 }
 
-/* ================================
-   Responsive (pantallas pequeñas)
-   ================================ */
-@media (max-width: 500px) {
+/* Responsive */
+@media (max-width: 768px) {
     .register-container {
-        border-radius: 12px;
+        grid-template-columns: 1fr;
     }
     
     .register-header {
-        padding: 25px 15px;
+        padding: 30px;
     }
     
     .login-form {
-        padding: 20px 15px;
+        padding: 30px;
     }
 }
