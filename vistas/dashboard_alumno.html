@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel del Alumno</title>
+    <link rel="stylesheet" href="estilos/dashboard.css">
+    <link rel="stylesheet" href="estilos/menu.css">
+    <link rel="stylesheet" href="estilos/calendario.css">
+    <link rel="stylesheet" href="estilos/modulos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Menú Vertical -->
+        <div class="menu-vertical" id="menu-vertical">
+            <!-- Cargado dinámicamente por dashboard.js -->
+        </div>
+
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <header class="content-header">
+                <h1 id="page-title">Calendario</h1>
+            </header>
+
+            <!-- Área de contenido dinámico -->
+            <div class="content-area" id="content-area">
+                <!-- Aquí se cargarán los diferentes módulos -->
+                <div id="calendario-container">
+                    <!-- Cargado dinámicamente por calendario.js -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../controles/dashboard.js"></script>
+    <script src="../controles/calendario.js"></script>
+    <script src="../controles/inasistencias.js"></script>
+    <script src="../controles/gestion_materias.js"></script>
+    <script src="../controles/materias.js"></script>
+    <script src="../controles/eventos.js"></script>
+</body>
+</html>

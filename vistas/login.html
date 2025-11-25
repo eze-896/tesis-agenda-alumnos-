@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Alumno</title>
+    <link rel="stylesheet" href="estilos/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="register-wrapper">
+        <div class="register-container">
+            <div class="register-header">
+                <h1 class="register-title">Iniciar Sesión</h1>
+                <p class="register-subtitle">Ingresa tus credenciales para acceder</p>
+            </div>
+            
+            <form class="login-form" id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Correo Electrónico o DNI</label>
+                    <input type="text" id="login-email" name="login_email" placeholder="Ej: ejemplo@correo.com o 12345678" required>
+                </div>
+
+                <div class="form-group password-container">
+                    <label for="login-password">Contraseña</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="login-password" name="login_password" placeholder="Ingresa tu contraseña" required>
+                        <button type="button" class="toggle-password" id="toggle-password">
+                            <svg class="eye-icon eye-open" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <svg class="eye-icon eye-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                                <path d="M17.94 17.94C16.2306 19.243 14.1491 19.9649 12 20C5 20 1 12 1 12C2.24389 9.6819 3.96914 7.65661 6.06 6.06M9.9 4.24C10.5883 4.07888 11.2931 3.99834 12 4C19 4 23 12 23 12C22.393 13.1356 21.6691 14.2047 20.84 15.19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M1 1L23 23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+               
+                <button type="submit" class="register-button">Iniciar sesión</button>
+                
+                <div class="login-link">
+                    ¿No tienes una cuenta? <a href="registro.html">Regístrate aquí</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../controles/login.js"></script>
+</body>
+</html>
