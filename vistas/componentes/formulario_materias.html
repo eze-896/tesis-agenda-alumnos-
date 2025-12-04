@@ -1,0 +1,108 @@
+<div class="gestion-materias-container">
+    <div class="form-unificado">
+        <form id="form-materia-completa">
+            <!-- Información de la Materia -->
+            <div class="form-section">
+                <h3>📖 Información de la Materia</h3>
+                <div class="form-group">
+                    <label for="nombre-materia">Nombre de la Materia *</label>
+                    <input type="text" id="nombre-materia" name="nombre_materia"
+                        placeholder="Ej: Matemáticas, Lengua, Ciencias..." required>
+                </div>
+                
+                <!-- NUEVO CAMPO: Duración -->
+                <div class="form-group">
+                    <label for="duracion-materia">Duración de la Clase (horas) *</label>
+                    <select id="duracion-materia" name="duracion_materia" required>
+                        <option value="">Selecciona la duración</option>
+                        <option value="1">1 hora</option>
+                        <option value="2">2 horas</option>
+                        <option value="3">3 horas</option>
+                        <option value="4">4 horas</option>
+                    </select>
+                </div>
+                
+                <!-- NUEVO CAMPO: Estado -->
+                <div class="form-group">
+                    <label for="estado-materia">Estado de la Materia *</label>
+                    <select id="estado-materia" name="estado_materia" required>
+                        <option value="">Selecciona el estado</option>
+                        <option value="cursando">Cursando</option>
+                        <option value="recursando">Recursando</option>
+                        <option value="intensificando">Intensificando</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Horarios de la Materia -->
+            <div class="form-section">
+                <h3>🕒 Horarios de Clase</h3>
+                <p class="section-description">Agrega los días y horarios en que tienes esta materia</p>
+
+                <div id="horarios-container">
+                    <div class="horario-item">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Día</label>
+                                <select name="dias[]" required>
+                                    <option value="">Selecciona un día</option>
+                                    <option value="1">Lunes</option>
+                                    <option value="2">Martes</option>
+                                    <option value="3">Miércoles</option>
+                                    <option value="4">Jueves</option>
+                                    <option value="5">Viernes</option>
+                                    <option value="6">Sábado</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Horario de Inicio</label>
+                                <input type="time" name="horarios[]" required>
+                            </div>
+                            <div class="form-group">
+                                <label>&nbsp;</label>
+                                <button type="button" class="btn-remove" style="display: none;">
+                                    ❌
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="btn-add" id="btn-agregar-horario">
+                    ➕ Agregar otro horario
+                </button>
+            </div>
+
+            <!-- Información del Profesor -->
+            <div class="form-section">
+                <h3>👨‍🏫 Información del Profesor</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nombre-profesor">Nombre del Profesor *</label>
+                        <input type="text" id="nombre-profesor" name="nombre_profesor" placeholder="Ej: María" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellido-profesor">Apellido del Profesor *</label>
+                        <input type="text" id="apellido-profesor" name="apellido_profesor" placeholder="Ej: González"
+                            required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email-profesor">Email del Profesor</label>
+                    <input type="email" id="email-profesor" name="email_profesor"
+                        placeholder="Ej: profe.maria@escuela.edu">
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-submit">
+                    💾 Guardar Materia Completa
+                </button>
+                
+                <button type="button" class="btn-cancel">
+                    🗑️ Limpiar Formulario
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Sistema de agenda académico para alumnos</title>
+    
+    <!-- Fuentes y Iconos -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- CSS Modularizado -->
+     <link rel="stylesheet" href="estilos/login.css">
+    <link rel="stylesheet" href="estilos/variables.css">
+    <link rel="stylesheet" href="estilos/animaciones.css">
+    <link rel="stylesheet" href="estilos/global.css">
+    <link rel="stylesheet" href="estilos/auth.css">
+    <link rel="stylesheet" href="estilos/mejoras.css">
+    <link rel="stylesheet" href="estilos/botones.css">
+    <link rel="stylesheet" href="estilos/formularios.css">
+</head>
+<body class="auth-page">
+    <div class="auth-background">
+        <div class="auth-particles"></div>
+    </div>
+    
+    <div class="auth-wrapper">
+        <div class="auth-container animate-slide-up">
+            <!-- Header con logo -->
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1 class="auth-title">Sistema Académico</h1>
+                        <p class="auth-subtitle">Plataforma Estudiantil</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Formulario -->
+            <div class="auth-content">
+                <div class="form-header">
+                    <h2>Iniciar Sesión</h2>
+                    <p>Accede a tu cuenta estudiantil</p>
+                </div>
+                
+                <form class="auth-form" id="login-form">
+                    <div class="form-group">
+                        <label for="login-email" class="form-label">
+                            <i class="fas fa-user"></i>
+                            Correo Electrónico o DNI
+                        </label>
+                        <input type="text" id="login-email" name="login_email" 
+                               class="form-input" 
+                               placeholder="ejemplo@escuela.edu o 12345678" 
+                               required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="login-password" class="form-label">
+                            <i class="fas fa-lock"></i>
+                            Contraseña
+                        </label>
+                        <div class="password-container">
+                            <input type="password" id="login-password" name="login_password" 
+                                   class="form-input password-field" 
+                                   placeholder="Ingresa tu contraseña" 
+                                   required>
+                            <button type="button" class="toggle-password" id="toggle-password" data-target="login-password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                   
+                    <button type="submit" class="auth-button btn-primary">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span class="button-text">Iniciar Sesión</span>
+                        <div class="button-loading">
+                            <div class="loading-spinner"></div>
+                        </div>
+                    </button>
+                    
+                    <div class="auth-footer">
+                        <p>¿No tienes una cuenta? 
+                            <a href="registro.html" class="auth-link">
+                                Regístrate aquí
+                            </a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="../controles/login.js"></script>
+</body>
+</html>

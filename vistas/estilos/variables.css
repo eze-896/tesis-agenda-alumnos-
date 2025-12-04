@@ -1,0 +1,128 @@
+/* VARIABLES GLOBALES */
+:root {
+    /*  Colores Principales  */
+    --primary-violet: #7B2CBF;
+    --secondary-violet: #9D4EDD;
+    --light-violet: #C77DFF;
+    --dark-violet: #5A189A;
+    
+    --primary-yellow: #FFD60A;
+    --secondary-yellow: #FFC300;
+    --dark-yellow: #FFB000;
+    --light-yellow: #FFED4E;
+    
+    /* Colores Neutros*/
+    --black: #0D0221;
+    --dark-gray: #1A1A2E;
+    --medium-gray: #2D2D44;
+    --light-gray: #F8F9FA;
+    --white: #FFFFFF;
+    
+    /* Estados */
+    --success: #10B981;
+    --warning: #F59E0B;
+    --error: #EF4444;
+    --info: #3B82F6;
+    
+    /*  Sombras */
+    --shadow-sm: 0 2px 4px rgba(123, 44, 191, 0.1);
+    --shadow-md: 0 4px 12px rgba(123, 44, 191, 0.15);
+    --shadow-lg: 0 8px 24px rgba(123, 44, 191, 0.2);
+    --shadow-xl: 0 16px 40px rgba(123, 44, 191, 0.25);
+    
+    --shadow-yellow-sm: 0 2px 4px rgba(255, 214, 10, 0.2);
+    --shadow-yellow-md: 0 4px 12px rgba(255, 214, 10, 0.3);
+    --shadow-yellow-lg: 0 8px 24px rgba(255, 214, 10, 0.4);
+    --shadow-yellow-xl: 0 16px 40px rgba(255, 214, 10, 0.5);
+    
+    /*  Transiciones */
+    --transition-fast: 0.2s ease;
+    --transition-medium: 0.3s ease;
+    --transition-slow: 0.5s ease;
+    
+    /*  Espaciados  */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 2.5rem;
+    --spacing-3xl: 3rem;
+    
+    /*  Border Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 15px;
+    --radius-xl: 20px;
+    --radius-full: 50%;
+    
+    /*  Fuentes  */
+    --font-family: 'Poppins', sans-serif;
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 1.875rem;
+    --font-size-4xl: 2.25rem;
+    
+    /*  Anchos  */
+    --menu-width: 280px;
+    --menu-width-collapsed: 80px;
+    
+    /*  Z-Index  */
+    --z-background: 0;
+    --z-base: 1;
+    --z-menu: 10;
+    --z-header: 20;
+    --z-dropdown: 30;
+    --z-modal: 40;
+    --z-tooltip: 50;
+}
+
+/*  Tema Oscuro (opcional)  */
+[data-theme="dark"] {
+    --light-gray: #1A1A2E;
+    --white: #F8F9FA;
+}
+
+/*  Reset y Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background: linear-gradient(135deg, var(--dark-gray) 0%, var(--black) 100%);
+    color: var(--light-gray);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* Utilidades de Tipografía  */
+.text-primary { color: var(--primary-violet); }
+.text-secondary { color: var(--secondary-violet); }
+.text-yellow { color: var(--primary-yellow); }
+.text-white { color: var(--white); }
+.text-gray { color: var(--medium-gray); }
+
+/*  Utilidades de Fondo  */
+.bg-primary { background: var(--primary-violet); }
+.bg-secondary { background: var(--secondary-violet); }
+.bg-yellow { background: var(--primary-yellow); }
+.bg-dark { background: var(--black); }
+.bg-gray { background: var(--dark-gray); }
+
+/*  Utilidades de Espaciado  */
+.p-sm { padding: var(--spacing-sm); }
+.p-md { padding: var(--spacing-md); }
+.p-lg { padding: var(--spacing-lg); }
+.p-xl { padding: var(--spacing-xl); }
+
+.m-sm { margin: var(--spacing-sm); }
+.m-md { margin: var(--spacing-md); }
+.m-lg { margin: var(--spacing-lg); }
+.m-xl { margin: var(--spacing-xl); }

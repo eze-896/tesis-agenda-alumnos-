@@ -1,0 +1,213 @@
+/* MEJORAS VISUALES UNIFICADAS */
+
+/* Efectos de Glassmorphism */
+.glass-effect {
+    background: rgba(26, 26, 46, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(123, 44, 191, 0.2);
+}
+
+/* Tarjetas con hover mejorado */
+.card-hover {
+    transition: all var(--transition-medium);
+    position: relative;
+    overflow: hidden;
+}
+
+.card-hover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 214, 10, 0.1), transparent);
+    transition: left 0.6s;
+}
+
+.card-hover:hover::before {
+    left: 100%;
+}
+
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Badges modernos */
+.badge-modern {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 2px solid transparent;
+}
+
+.badge-violet {
+    background: var(--gradient-primary);
+    color: var(--white);
+    border-color: var(--primary-violet);
+}
+
+.badge-yellow {
+    background: var(--gradient-yellow);
+    color: var(--black);
+    border-color: var(--primary-yellow);
+}
+
+.badge-success {
+    background: var(--success);
+    color: var(--white);
+    border-color: var(--success);
+}
+
+/* Indicadores de estado */
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-full);
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.status-online { background: var(--success); }
+.status-offline { background: var(--error); }
+.status-busy { background: var(--warning); }
+
+/* Loaders mejorados */
+.loading-spinner-modern {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(123, 44, 191, 0.3);
+    border-top: 3px solid var(--primary-yellow);
+    border-radius: var(--radius-full);
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Animaciones específicas */
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(123, 44, 191, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(123, 44, 191, 0.8);
+    }
+}
+
+/* Utilidades de texto */
+.text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Grid system mejorado */
+.grid-responsive {
+    display: grid;
+    gap: var(--spacing-lg);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+/* Formularios modernos */
+.form-modern .form-input:focus {
+    border-color: var(--primary-yellow);
+    box-shadow: 0 0 0 3px rgba(255, 214, 10, 0.1);
+}
+
+.form-modern .form-label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-weight: 600;
+}
+
+/* Botones con iconos */
+.btn-with-icon {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+/* Efecto ripple */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.7);
+    transform: scale(0);
+    animation: ripple-animation 0.6s linear;
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+    .grid-responsive {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-row {
+        flex-direction: column;
+    }
+    
+    .menu-vertical {
+        transform: translateX(-100%);
+    }
+    
+    .menu-vertical.mobile-open {
+        transform: translateX(0);
+    }
+}
+
+/* Utilidades de display mejoradas */
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.text-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Sombras dinámicas */
+.shadow-dynamic {
+    transition: box-shadow var(--transition-medium);
+}
+
+.shadow-dynamic:hover {
+    box-shadow: var(--shadow-lg);
+}
